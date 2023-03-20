@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Empty, Button } from "antd";
-import { TodoItem } from "../components";
+import { ProgressBar, TodoItem } from "../components";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { openCreateModal } from "../store/modalSlice";
 
@@ -24,6 +24,7 @@ const TodosList = () => {
 
   return (
     <>
+      <ProgressBar />
       {list.map((item, index) => (
         <TodoItem {...item} index={index} key={item.id}/>
       ))}
