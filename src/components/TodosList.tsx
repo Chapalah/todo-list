@@ -10,11 +10,13 @@ const spinStyle: React.CSSProperties = {
   left: '50%',
 }
 
-const TodosTable = () => {
+const TodosList = () => {
+  const handleClick = () => {};
+
   if (false) {
     return (
       <Empty description={"There are no todos"}>
-        <Button type="primary">Create now</Button>
+        <Button type="primary" onClick={handleClick}>Create now</Button>
       </Empty>
     );
   }
@@ -37,4 +39,4 @@ const TodosTable = () => {
   );
 };
 
-export default memo(TodosTable);
+export default memo(TodosList);

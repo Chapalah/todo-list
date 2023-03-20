@@ -14,12 +14,14 @@ const rowStyle: React.CSSProperties = {
 };
 
 const TodoItems = () => {
+  const handleClick = () => {};
+
   const handleEdit = () => {};
 
   const handleDelete = () => {};
 
   return (
-    <Row style={rowStyle} align={"middle"} justify="space-between">
+    <Row style={rowStyle} align={"middle"} justify="space-between" onClick={handleClick}>
       <Space>
         <Checkbox></Checkbox>
         <Text>Test todo</Text>
