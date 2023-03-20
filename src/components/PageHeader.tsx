@@ -1,5 +1,7 @@
 import { memo } from "react";
 import { Button, Layout, Row, Typography } from "antd";
+import { useAppDispatch } from "../hooks";
+import { openModal } from "../store/modalSlice";
 
 const { Title } = Typography;
 const { Header } = Layout;
@@ -17,7 +19,12 @@ const titleStyle: React.CSSProperties = {
 };
 
 const PageHeader = () => {
-  const handleClick = () => {};
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(openModal("create"));
+  };
+
   return (
     <Header style={headerStyle}>
       <Row align={"middle"} justify={"space-between"}>
