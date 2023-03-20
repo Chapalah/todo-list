@@ -1,14 +1,19 @@
-import { PageHeader } from "./components";
-import { Layout } from "antd";
+import { PageHeader, TodosTable } from "./components";
+import { Layout, Row, Col } from "antd";
 
 const layutStyle: React.CSSProperties = {
-  minHeight: '100vh'
-}
+  minHeight: "100vh",
+};
 
 function App() {
   return (
     <Layout style={layutStyle}>
       <PageHeader />
+        <Row>
+          <Col span={20} offset={2}>
+            <TodosTable />
+          </Col>
+        </Row>
     </Layout>
   );
 }

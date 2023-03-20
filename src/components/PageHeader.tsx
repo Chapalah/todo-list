@@ -6,6 +6,7 @@ const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
   height: "80px",
+  marginBottom: '1rem',
   padding: "20px 15px",
   lineHeight: "120%",
 };
