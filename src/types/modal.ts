@@ -1,4 +1,4 @@
-export type IModal = {
+export type Modal = {
   isVisible: boolean;
   action: ModalActionType;
   editTodoTitle?: string;

@@ -4,7 +4,7 @@ import { memo } from "react";
 import { useAppDispatch } from "../hooks";
 import { openEditModal } from "../store/modalSlice";
 import { toggleTodo, deleteTodo } from "../store/todoSlice";
-import { ITodo } from "../types/todo";
+import { Todo } from "../types/todo";
 
 const { Text } = Typography;
 
@@ -16,7 +16,7 @@ const rowStyle: React.CSSProperties = {
   marginBottom: "15px",
 };
 
-interface TodoItemProps extends ITodo {
+interface TodoItemProps extends Todo {
   index: number
 }
 

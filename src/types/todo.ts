@@ -1,4 +1,4 @@
-export type ITodo = {
+export type Todo = {
   id: number;
   title: string;
   completed: boolean;
@@ -6,5 +6,5 @@ export type ITodo = {
 }
 
 export type TodosState = {
-  list: ITodo[];
+  list: Todo[];
 }

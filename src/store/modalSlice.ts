@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IModal } from "../types/modal";
+import { Modal } from "../types/modal";
 
-const initialState: IModal = {
+const initialState: Modal = {
   isVisible: false,
   action: "",
 };
