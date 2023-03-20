@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Button, Layout, Row, Typography } from "antd";
 import { useAppDispatch } from "../hooks";
-import { openModal } from "../store/modalSlice";
+import { openCreateModal } from "../store/modalSlice";
 
 const { Title } = Typography;
 const { Header } = Layout;
@@ -22,7 +22,7 @@ const PageHeader = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(openModal("create"));
+    dispatch(openCreateModal());
   };
 
   return (

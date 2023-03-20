@@ -1,6 +1,10 @@
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button, Row, Typography, Space, Checkbox } from "antd";
 import { memo } from "react";
+import { useAppDispatch } from "../hooks";
+import { openEditModal } from "../store/modalSlice";
+import { toggleTodo, deleteTodo } from "../store/todoSlice";
+import { ITodo } from "../types/todo";
 
 const { Text } = Typography;
 
@@ -10,26 +14,39 @@ const rowStyle: React.CSSProperties = {
   borderRadius: "6px",
   boxShadow: "0px 1px 2px rgba(0,0,0,.15)",
   marginBottom: "15px",
-  cursor: "pointer",
 };
 
-const TodoItems = () => {
-  const handleClick = () => {};
+interface TodoItemProps extends ITodo {
+  index: number
+}
 
-  const handleEdit = () => {};
+const TodoItems = (props: TodoItemProps) => {
+  const { title, completed, id, date, index } = props;
+  const dispatch = useAppDispatch();
 
-  const handleDelete = () => {};
+  const handleChange = () => {
+    dispatch(toggleTodo(id));
+  };
+
+  const handleEdit = () => {
+    dispatch(openEditModal({id, title}))
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTodo(id));
+  };
 
   return (
-    <Row style={rowStyle} align={"middle"} justify="space-between" onClick={handleClick}>
+    <Row style={rowStyle} align={"middle"} justify="space-between">
       <Space>
-        <Checkbox></Checkbox>
-        <Text>Test todo</Text>
+        <Text>{index + 1}.</Text>
+        <Checkbox checked={completed} onChange={handleChange} />
+        <Text>{title}</Text>
       </Space>
 
       <Row align={"middle"} justify={"end"}>
         <Space size="large">
-          <Text>24\05\2022</Text>
+          <Text>{date}</Text>
           <Space>
             <Button icon={<EditOutlined />} onClick={handleEdit}>
               Edit

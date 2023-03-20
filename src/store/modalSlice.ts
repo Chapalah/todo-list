@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ModalType, ModalActionType } from "../types/modal";
+import { IModal } from "../types/modal";
 
-const initialState: ModalType = {
+const initialState: IModal = {
   isVisible: false,
   action: "",
 };
@@ -9,17 +9,26 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal(state, action: PayloadAction<ModalActionType>) {
+    openCreateModal(state) {
       state.isVisible = true;
-      state.action = action.payload;
+      state.action = "create";
+    },
+    openEditModal(state, action: PayloadAction<{ id: number; title: string }>) {
+      state.isVisible = true;
+      state.action = "edit";
+      state.editTodoId = action.payload.id;
+      state.editTodoTitle = action.payload.title;
     },
     closeModal(state) {
       state.isVisible = false;
       state.action = "";
+      state.editTodoId = null;
+      state.editTodoTitle = '';
     },
   },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { openCreateModal, openEditModal, closeModal } =
+  modalSlice.actions;
 
 export default modalSlice.reducer;

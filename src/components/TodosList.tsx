@@ -1,25 +1,18 @@
 import { memo } from "react";
-import { Empty, Button, Spin } from "antd";
+import { Empty, Button } from "antd";
 import { TodoItem } from "../components";
-import { useAppDispatch } from "../hooks";
-import { openModal } from "../store/modalSlice";
-
-import { LoadingOutlined } from "@ant-design/icons";
-
-const spinStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "40vh",
-  left: "50%",
-};
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { openCreateModal } from "../store/modalSlice";
 
 const TodosList = () => {
+  const {list } = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(openModal("create"));
+    dispatch(openCreateModal());
   };
 
-  if (false) {
+  if (!list.length) {
     return (
       <Empty description={"There are no todos"}>
         <Button type="primary" onClick={handleClick}>
@@ -29,23 +22,11 @@ const TodosList = () => {
     );
   }
 
-  if (false) {
-    return (
-      <Spin
-        style={spinStyle}
-        indicator={<LoadingOutlined style={{ fontSize: "3rem" }} />}
-      />
-    );
-  }
-
   return (
     <>
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
+      {list.map((item, index) => (
+        <TodoItem {...item} index={index} key={item.id}/>
+      ))}
     </>
   );
 };
