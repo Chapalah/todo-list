@@ -1,4 +1,4 @@
-import { PageHeader, TodosTable } from "./components";
+import { PageHeader, TodoModal, TodosTable } from "./components";
 import { Layout, Row, Col } from "antd";
 
 const layutStyle: React.CSSProperties = {
@@ -8,6 +8,7 @@ const layutStyle: React.CSSProperties = {
 function App() {
   return (
     <Layout style={layutStyle}>
+      <TodoModal />
       <PageHeader />
         <Row>
           <Col span={20} offset={2}>
