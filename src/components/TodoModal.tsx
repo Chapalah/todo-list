@@ -6,7 +6,9 @@ import { closeModal } from "../store/modalSlice";
 import { createTodo, editTodo } from "../store/todoSlice";
 
 const TodoModal = () => {
-  const { editTodoTitle = "", editTodoId } = useAppSelector((state) => state.modal);
+  const { editTodoTitle = "", editTodoId } = useAppSelector(
+    (state) => state.modal
+  );
   const [inputValue, setInputValue] = useState(editTodoTitle);
   const [isValidationError, setValidationError] = useState(false);
   const { isVisible, action } = useAppSelector((state) => state.modal);
@@ -19,7 +21,7 @@ const TodoModal = () => {
 
   useEffect(() => {
     if (editTodoTitle) {
-      setInputValue(editTodoTitle)
+      setInputValue(editTodoTitle);
     }
   }, [editTodoTitle]);
 
@@ -35,7 +37,9 @@ const TodoModal = () => {
         createTodo({
           id: date.getTime(),
           title: inputValue,
-          date: [date.getDate(), date.getMonth() + 1, date.getFullYear()].join("/"),
+          date: [date.getDate(), date.getMonth() + 1, date.getFullYear()].join(
+            "/"
+          ),
           completed: false,
         })
       );

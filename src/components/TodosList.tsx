@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { openCreateModal } from "../store/modalSlice";
 
 const TodosList = () => {
-  const {list } = useAppSelector((state) => state.todos);
+  const { list } = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ const TodosList = () => {
     <>
       <ProgressBar />
       {list.map((item, index) => (
-        <TodoItem {...item} index={index} key={item.id}/>
+        <TodoItem {...item} index={index} key={item.id} />
       ))}
     </>
   );

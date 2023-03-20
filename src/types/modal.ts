@@ -5,4 +5,4 @@ export type Modal = {
   editTodoId?: number | null;
 };
 
-export type ModalActionType = 'create' | 'edit' | '';
+export type ModalActionType = "create" | "edit" | "";

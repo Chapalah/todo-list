@@ -23,7 +23,7 @@ const modalSlice = createSlice({
       state.isVisible = false;
       state.action = "";
       state.editTodoId = null;
-      state.editTodoTitle = '';
+      state.editTodoTitle = "";
     },
   },
 });

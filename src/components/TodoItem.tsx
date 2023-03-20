@@ -17,7 +17,7 @@ const rowStyle: React.CSSProperties = {
 };
 
 interface TodoItemProps extends Todo {
-  index: number
+  index: number;
 }
 
 const TodoItems = (props: TodoItemProps) => {
@@ -29,7 +29,7 @@ const TodoItems = (props: TodoItemProps) => {
   };
 
   const handleEdit = () => {
-    dispatch(openEditModal({id, title}))
+    dispatch(openEditModal({ id, title }));
   };
 
   const handleDelete = () => {

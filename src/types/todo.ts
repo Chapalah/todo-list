@@ -3,8 +3,8 @@ export type Todo = {
   title: string;
   completed: boolean;
   date: string;
-}
+};
 
 export type TodosState = {
   list: Todo[];
-}
+};
