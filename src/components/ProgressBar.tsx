@@ -31,7 +31,7 @@ const ProgressBar = () => {
 
   return (
     <>
-      Complted {proggres.completedCount} of {proggres.total}
+      Completed {proggres.completedCount} of {proggres.total}
       <Progress percent={proggres.percent} />
     </>
   );
