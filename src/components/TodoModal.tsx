@@ -19,6 +19,7 @@ const TodoModal = () => {
 
   const handleCancel = () => {
     dispatch(closeModal());
+    setInputValue("");
   };
 
   useEffect(() => {

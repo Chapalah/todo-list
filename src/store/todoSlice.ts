@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Todo, TodosState } from "../types/todo";
+import { Todo, TodoFilter, TodosState } from "../types/todo";
 
 const initialState: TodosState = {
   list: [],
+  filteredList: [],
+  filter: { searchValue: "", searchOption: "all" },
 };
 
 const todoSlice = createSlice({
@@ -27,10 +29,47 @@ const todoSlice = createSlice({
     deleteTodo(state, action: PayloadAction<number>) {
       state.list = state.list.filter((item) => item.id !== action.payload);
     },
+    setTodosFilter(state, action: PayloadAction<TodoFilter>) {
+      state.filter = action.payload;
+    },
+    filterTodos(state) {
+      const { list, filter } = state;
+
+      if (filter.searchOption === "all" && filter.searchValue === "") {
+        state.filteredList = list;
+        return;
+      }
+
+      if (filter.searchOption === "all" && filter.searchValue !== "") {
+        state.filteredList = list.filter(
+          (item) => item.title.toLowerCase().indexOf(filter.searchValue) > -1
+        );
+        return;
+      }
+
+      state.filteredList = list.filter((item) => {
+        if (item.title.toLowerCase().indexOf(filter.searchValue) > -1 || filter.searchValue === '') {
+          if (item.completed && filter.searchOption === "completed") {
+            
+            return item;
+          }
+
+          if (!item.completed && filter.searchOption === "not completed") {
+            return item;
+          }
+        }
+      });
+    },
   },
 });
 
-export const { createTodo, toggleTodo, editTodo, deleteTodo } =
-  todoSlice.actions;
+export const {
+  createTodo,
+  toggleTodo,
+  editTodo,
+  deleteTodo,
+  setTodosFilter,
+  filterTodos,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

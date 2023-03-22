@@ -9,7 +9,7 @@ type Proggres = {
 };
 
 const ProgressBar = () => {
-  const { list } = useAppSelector((state) => state.todos);
+  const { filteredList } = useAppSelector((state) => state.todos);
   const [proggres, setProggres] = useState<Proggres>({
     total: 0,
     completedCount: 0,
@@ -17,8 +17,8 @@ const ProgressBar = () => {
   });
 
   useEffect(() => {
-    const total = list.length;
-    const completedCount = list.reduce(
+    const total = filteredList.length;
+    const completedCount = filteredList.reduce(
       (acc, item) => (item.completed ? (acc += 1) : acc),
       0
     );
@@ -27,7 +27,7 @@ const ProgressBar = () => {
       completedCount,
       percent: Math.floor((completedCount / total) * 100),
     });
-  }, [list]);
+  }, [filteredList]);
 
   return (
     <>

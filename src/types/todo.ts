@@ -5,6 +5,13 @@ export type Todo = {
   date: string;
 };
 
+export type TodoFilter = {
+  searchValue: string;
+  searchOption: string;
+};
+
 export type TodosState = {
   list: Todo[];
+  filteredList: Todo[];
+  filter: TodoFilter;
 };
