@@ -1,8 +1,8 @@
 export type Modal = {
   isVisible: boolean;
   action: ModalActionType;
-  editTodoTitle?: string;
-  editTodoId?: number | null;
+  targetTodoTitle?: string;
+  targetTodoId?: number | null;
 };
 
-export type ModalActionType = "create" | "edit" | "";
+export type ModalActionType = "create" | "edit" | "delete" | "";

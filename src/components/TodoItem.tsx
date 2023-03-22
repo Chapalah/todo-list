@@ -2,8 +2,8 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button, Row, Typography, Space, Checkbox } from "antd";
 import { memo } from "react";
 import { useAppDispatch } from "../hooks";
-import { openEditModal } from "../store/modalSlice";
-import { toggleTodo, deleteTodo } from "../store/todoSlice";
+import { openEditModal, opentDeleteModal } from "../store/modalSlice";
+import { toggleTodo } from "../store/todoSlice";
 import { Todo } from "../types/todo";
 
 const { Text } = Typography;
@@ -33,7 +33,7 @@ const TodoItems = (props: TodoItemProps) => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteTodo(id));
+    dispatch(opentDeleteModal({ id, title }));
   };
 
   return (

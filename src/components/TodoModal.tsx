@@ -1,15 +1,17 @@
 import { useState, useEffect, memo } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Typography, Divider } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { closeModal } from "../store/modalSlice";
-import { createTodo, editTodo } from "../store/todoSlice";
+import { createTodo, deleteTodo, editTodo } from "../store/todoSlice";
+
+const { Text } = Typography;
 
 const TodoModal = () => {
-  const { editTodoTitle = "", editTodoId } = useAppSelector(
+  const { targetTodoTitle = "", targetTodoId } = useAppSelector(
     (state) => state.modal
   );
-  const [inputValue, setInputValue] = useState(editTodoTitle);
+  const [inputValue, setInputValue] = useState(targetTodoTitle);
   const [isValidationError, setValidationError] = useState(false);
   const { isVisible, action } = useAppSelector((state) => state.modal);
 
@@ -20,10 +22,10 @@ const TodoModal = () => {
   };
 
   useEffect(() => {
-    if (editTodoTitle) {
-      setInputValue(editTodoTitle);
+    if (targetTodoTitle) {
+      setInputValue(targetTodoTitle);
     }
-  }, [editTodoTitle]);
+  }, [targetTodoTitle]);
 
   const handleSave = () => {
     if (inputValue === "") {
@@ -31,29 +33,35 @@ const TodoModal = () => {
       return;
     }
 
-    if (action === "create") {
-      const date = new Date();
-      dispatch(
-        createTodo({
-          id: date.getTime(),
-          title: inputValue,
-          date: [date.getDate(), date.getMonth() + 1, date.getFullYear()].join(
-            "/"
-          ),
-          completed: false,
-        })
-      );
-    }
-
-    if (action === "edit") {
-      if (editTodoId) {
+    switch (action) {
+      case "create":
+        const date = new Date();
         dispatch(
-          editTodo({
-            id: editTodoId,
+          createTodo({
+            id: date.getTime(),
             title: inputValue,
+            date: [
+              date.getDate(),
+              date.getMonth() + 1,
+              date.getFullYear(),
+            ].join("/"),
+            completed: false,
           })
         );
-      }
+        break;
+      case "edit":
+        targetTodoId &&
+          dispatch(
+            editTodo({
+              id: targetTodoId,
+              title: inputValue,
+            })
+          );
+
+        break;
+      case "delete":
+        targetTodoId && dispatch(deleteTodo(targetTodoId));
+        break;
     }
 
     dispatch(closeModal());
@@ -74,8 +82,37 @@ const TodoModal = () => {
         return "Create Todo";
       case "edit":
         return "Edit Todo";
+      case "delete":
+        return "Delete Todo";
       default:
         return "";
+    }
+  };
+
+  const renderSubmitButton = (action: string) => {
+    switch (action) {
+      case "delete":
+        return (
+          <Button
+            key="submit"
+            danger
+            disabled={isValidationError}
+            onClick={handleSave}
+          >
+            Delete
+          </Button>
+        );
+      default:
+        return (
+          <Button
+            key="submit"
+            type="primary"
+            disabled={isValidationError}
+            onClick={handleSave}
+          >
+            Submit
+          </Button>
+        );
     }
   };
 
@@ -89,22 +126,23 @@ const TodoModal = () => {
         <Button key="back" onClick={handleCancel}>
           Close
         </Button>,
-        <Button
-          key="submit"
-          type="primary"
-          disabled={isValidationError}
-          onClick={handleSave}
-        >
-          Submit
-        </Button>,
+        renderSubmitButton(action),
       ]}
     >
-      <TextArea
-        status={isValidationError ? "error" : ""}
-        style={{ maxHeight: "300px" }}
-        value={inputValue}
-        onChange={handleChange}
-      />
+      {action === "delete" ? (
+        <>
+          <Text>Are you sure you want to delete this todo?</Text>
+          <Divider style={{ margin: "10px 0px" }} />
+          <Text>Todo title: {targetTodoTitle}</Text>
+        </>
+      ) : (
+        <TextArea
+          status={isValidationError ? "error" : ""}
+          style={{ maxHeight: "300px" }}
+          value={inputValue}
+          onChange={handleChange}
+        />
+      )}
     </Modal>
   );
 };

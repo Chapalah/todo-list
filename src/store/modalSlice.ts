@@ -16,19 +16,28 @@ const modalSlice = createSlice({
     openEditModal(state, action: PayloadAction<{ id: number; title: string }>) {
       state.isVisible = true;
       state.action = "edit";
-      state.editTodoId = action.payload.id;
-      state.editTodoTitle = action.payload.title;
+      state.targetTodoId = action.payload.id;
+      state.targetTodoTitle = action.payload.title;
+    },
+    opentDeleteModal(
+      state,
+      action: PayloadAction<{ id: number; title: string }>
+    ) {
+      state.isVisible = true;
+      state.action = "delete";
+      state.targetTodoId = action.payload.id;
+      state.targetTodoTitle = action.payload.title;
     },
     closeModal(state) {
       state.isVisible = false;
       state.action = "";
-      state.editTodoId = null;
-      state.editTodoTitle = "";
+      state.targetTodoId = null;
+      state.targetTodoTitle = "";
     },
   },
 });
 
-export const { openCreateModal, openEditModal, closeModal } =
+export const { openCreateModal, openEditModal, opentDeleteModal, closeModal } =
   modalSlice.actions;
 
 export default modalSlice.reducer;
